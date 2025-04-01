@@ -1,0 +1,109 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: url("https://img.freepik.com/photos-gratuite/fond-plancher-bois_53876-88628.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 100dvh;
+}
+
+header {
+	background: #800000;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+header ul {
+	margin-right: 20px;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	flex-direction: row;
+	width: 25dvw;
+	list-style: none;
+}
+
+header a:visited, header a {
+	color: #E5C94F;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-weight: 800;
+}
+
+#container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+}
+
+#container > div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 40px;
+	width: 85dvw;
+	height: 85dvh;
+}
+
+#gameH1 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	margin-top: 20px;
+	font-family: 'Georgia', serif;
+    font-weight: 600;
+    font-size: 24px;
+    color: #5a4e33;
+}
+
+#startGame {
+    background-color: #f5e1a4; /* Couleur de fond beige, comme du papier ancien */
+    border: 2px solid #d1a15b; /* Bordure marron clair */
+    padding: 10px 20px;
+    font-family: 'Georgia', serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: #5a4e33;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: inset 1px 1px 8px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.2); /* Ombre pour l'effet de profondeur */
+    background-image: linear-gradient(45deg, #f5e1a4, #f2c76b); /* Gradient léger pour simuler une texture */
+    transition: all 0.1s ease;
+  }
+
+#newHint {
+    background-color: #f5e1a4; /* Couleur de fond beige, comme du papier ancien */
+    border: 2px solid #d1a15b; /* Bordure marron clair */
+    padding: 5px 10px;
+    font-family: 'Georgia', serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #5a4e33;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: inset 1px 1px 8px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.2); /* Ombre pour l'effet de profondeur */
+    background-image: linear-gradient(45deg, #f5e1a4, #f2c76b); /* Gradient léger pour simuler une texture */
+    transition: all 0.1s ease;
+  }
+
+  #startGame:active, #newHint:active {
+    scale: 0.95;
+  }
+
+#gameContainer div:nth-child(2){
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 20px;
+	align-items: center;
+}

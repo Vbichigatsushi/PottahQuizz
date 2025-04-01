@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="styles.css">
+		<title>PottahQuizz</title>
+	</head>
+	<body>
+		<header>
+			<img src="img/logo.png" width="150px">
+			<nav>
+				<ul>
+					<li><a href="#">Wiki</a></li>
+					<li><a href="#">Historique</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		
+		<section id="container">
+			<div>
+				<h1 id="gameH1">Find the Harry Potter character</h1>
+				<button id="startGame">Start</button>
+			</div>
+		</section>
+
+		<script type="text/javascript" src="CQuestions.js"></script>
+		<script type="text/javascript">
+
+			function isWizard(character) {
+				return character.wizard ? "Your character is a wizard" : "Your character isn't a wizard";
+			}
+
+			function whatSpecies(character) {
+				return character.species != "" ? "Your character is a(n) " + character.species : -1
+			}
+
+			function whichHouse(character){
+				return character.house != "" ? "Your character is from the " + character.house + " house" : "your character has no house"
+			}
+
+			function isAlive(character){
+				return character.alive ? "Your character is still alive" : "Your character is dead";
+			}
+
+			function whatGender(character){
+				return character.gender != "" ? "Your character is a " + character.gender : "Your character is a tractopelle";
+			}
+
+			function whichActor(character){
+				return character.actor != "" ? "Your character's actor is " + character.actor : "Your character is not played by anyone";
+			}
+
+			function whichPatronus(character){
+				return character.patronus != "" ? "Your character's patronus is a(n) " + character.patronus : "Your character has no known patronus";
+			}
+
+			const harrypotterData = []
+			fetch("https://hp-api.onrender.com/api/characters").then(result => {
+	            return result.json();
+	        }).then(data => {
+	            data.forEach(character => {
+	            	if (character.image != "") {
+	            		harrypotterData.push(character)
+	            	}
+	            });
+	        });
+
+        	let randomCharacter;
+        	let alreadyDoneQuestion = [];
+        	let tabQuestions = [isWizard, whatSpecies, whichHouse, isAlive, whatGender, whichActor, whichPatronus];
+
+	        document.getElementById("startGame").addEventListener("click", function (e) {
+	        	randomCharacter = Math.floor(Math.random() * harrypotterData.length);
+	        	console.log(harrypotterData[randomCharacter])
+
+			    let gameHtml = `<div id="gameContainer">
+			    					<div>
+				    					<input type='text' id='fieldProposition'>
+				    					<button id="submit" onclick="checkIfWon()">submit</button>
+				    				</div>
+			    					<div>
+				    					<ul id="hints">
+
+				    					</ul>
+			    						<button id="newHint" onclick="newHint()">New Hint</button>
+			    					</div>
+								</div>`;
+
+			    document.getElementById("container").innerHTML = gameHtml;
+			    newHint();
+			});
+
+			function newHint() {
+	        	let gameContainerHints = document.getElementById("hints");
+			    let newLi = document.createElement("li");
+
+			    let randomQuestion = Math.floor(Math.random() * tabQuestions.length);
+
+			    while (alreadyDoneQuestion.includes(randomQuestion) && tabQuestions.length != 0) {
+			    	randomQuestion = Math.floor(Math.random() * tabQuestions.length);
+			    }
+
+			    newLi.textContent = tabQuestions[randomQuestion](harrypotterData[randomCharacter]);
+			    newLi.class = "hint";
+
+			    gameContainerHints.appendChild(newLi);
+			    tabQuestions.splice(randomQuestion, 1)
+			};
+
+			function checkIfWon(){
+				console.log(document.getElementById("fieldProposition").value)
+				if (document.getElementById("fieldProposition").value == harrypotterData[randomCharacter].name){
+					alert("you won");
+					location.reload();
+				}
+			}
+
+		</script>
+	</body>
+</html>
